@@ -1,0 +1,25 @@
+{
+  "name": "my_jasmine_goodies",
+  "version": "1.0.0",
+  "description": "string-calculator (266) For raw project instructions see: https://raw.githubusercontent.com/Umuzi-org/tech-department/master/content/projects/tdd/string-calculator/_index.md",
+  "main": "index.js",
+  "scripts": {
+    "test": "jasmine",
+    "send_inspiration": "source ./smtp_secrets.sh && node src/email.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "install": "^0.13.0",
+    "jasmine": "^3.5.0",
+    "jsdom": "^16.2.2",
+    "mailer": "^0.6.7",
+    "node-modules": "^1.0.1",
+    "nodemailer": "^6.4.8",
+    "npm": "^6.14.5"
+  },
+  "directories": {
+    "lib": "lib"
+  },
+  "devDependencies": {}
+}
