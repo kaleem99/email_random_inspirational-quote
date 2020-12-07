@@ -1,27 +1,35 @@
-let nodemailer = require('nodemailer'); 
+const nodemailer = require('nodemailer');
+require('dotenv').config();
+const {textMessage} = require('../message');
 
-let transporter = nodemailer.createTransport({
-    service: 'sendinblue',
-    secure: false,
-    port: 587,
-    auth: {
-        user: process.env.SMTP_LOGIN,
-        pass: process.env.SMTP_PASSWORD
-    },
-    tls: {
-        rejectUnauthorized: false
-    }
+const transport = nodemailer.createTransport({
+  service: 'sendinblue',
+  auth: {
+    type: "login",
+    user: process.env.SMTP_LOGIN,
+    pass: process.env.SMTP_PASSWORD,
+  }
 });
-let HelpOptions = {
-    from: process.env.SMTP_LOGIN,
-    to: process.argv[2],
-    subject: 'Lorem ipsum',
-    text: process.env.SMTP_QUOTE
+
+function helpOptions(receiver){
+var helpOtions = {
+  from: process.env.SMTP_LOGIN,
+  to: receiver,
+  subject: 'Be inspired by daily mail',
+  text: textMessage,
 };
-transporter.sendMail(HelpOptions, (error, info) => {
-    if(error){
-        return console.log(error);
-    }
-    console.log("The message was sent");
-    console.log(info);
-});
+return helpOtions;
+}
+
+function transporter(receiver){
+transport.sendMail(helpOptions(receiver), function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("message sent");
+  }
+}); 
+}
+transporter(process.argv[2]);
+
+module.exports = {transporter, helpOptions}
